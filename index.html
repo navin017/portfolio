@@ -1,0 +1,728 @@
+<title>Naveen Elango — Full-Stack Engineer</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #14161A;
+    --ink-muted: #5B6270;
+    --accent: #2F5FE0;
+    --accent-amber: #C97A1E;
+    --accent-teal: #0E8C7F;
+    --line: #E7E8EC;
+    --chip-bg: #F2F4F8;
+    --tint-blue: #EAF0FE;
+    --tint-amber: #FBF0E3;
+    --tint-teal: #E6F5F3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E0F12;
+      --ink: #F2F3F5;
+      --ink-muted: #A7ADB8;
+      --accent: #7B9BFF;
+      --accent-amber: #E3A75C;
+      --accent-teal: #4FC9B9;
+      --line: #24262C;
+      --chip-bg: #1B1D22;
+      --tint-blue: #1B2138;
+      --tint-amber: #262019;
+      --tint-teal: #16241F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E0F12; --ink: #F2F3F5; --ink-muted: #A7ADB8; --accent: #7B9BFF; --accent-amber: #E3A75C; --accent-teal: #4FC9B9;
+    --line: #24262C; --chip-bg: #1B1D22; --tint-blue: #1B2138; --tint-amber: #262019; --tint-teal: #16241F;
+  }
+  :root[data-theme="light"] {
+    --bg: #FFFFFF; --ink: #14161A; --ink-muted: #5B6270; --accent: #2F5FE0; --accent-amber: #C97A1E; --accent-teal: #0E8C7F;
+    --line: #E7E8EC; --chip-bg: #F2F4F8; --tint-blue: #EAF0FE; --tint-amber: #FBF0E3; --tint-teal: #E6F5F3;
+  }
+
+  * { box-sizing: border-box; }
+  html { overflow-x: hidden; scroll-behavior: smooth; }
+  section { scroll-margin-top: 76px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+    position: relative;
+  }
+
+  /* ---------- Scroll progress ---------- */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2.5px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-teal));
+    z-index: 30;
+    transition: width 0.1s linear;
+  }
+
+  /* ---------- Nav ---------- */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .site-nav.scrolled { border-bottom-color: var(--line); box-shadow: 0 1px 0 var(--line); }
+  .site-nav .brand {
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .site-nav .brand span { color: var(--accent); }
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav a.nav-link {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .site-nav a.nav-link:hover { color: var(--accent); }
+  @media (max-width: 560px) {
+    .site-nav ul { gap: 16px; }
+    .site-nav a.nav-link { font-size: 0.84rem; }
+  }
+
+  /* ---------- Hero ---------- */
+  header { position: relative; }
+  header::before {
+    content: "";
+    position: absolute;
+    top: -100px; left: -140px;
+    width: 620px; height: 480px;
+    background:
+      radial-gradient(circle at 20% 30%, var(--accent) 0%, transparent 42%),
+      radial-gradient(circle at 65% 15%, var(--accent-amber) 0%, transparent 38%),
+      radial-gradient(circle at 45% 65%, var(--accent-teal) 0%, transparent 40%);
+    opacity: 0.16;
+    filter: blur(34px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: var(--chip-bg);
+    border: 1px solid var(--line);
+    padding: 5px 12px 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .status-pill .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #2FBF6E;
+    box-shadow: 0 0 0 0 rgba(47,191,110,0.55);
+    animation: pulse-dot 2.2s ease-out infinite;
+  }
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(47,191,110,0.5); }
+    70% { box-shadow: 0 0 0 7px rgba(47,191,110,0); }
+    100% { box-shadow: 0 0 0 0 rgba(47,191,110,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .status-pill .dot { animation: none; } }
+  .hero-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .avatar {
+    flex: none;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .eyebrow {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .tagline {
+    font-size: 1.15rem;
+    color: var(--ink-muted);
+    max-width: 56ch;
+    margin: 0 0 32px;
+  }
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    align-items: center;
+    font-size: 1rem;
+  }
+  .contact-row a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .contact-row a:hover { color: var(--accent); }
+  .btn-resume {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff !important;
+    background: var(--accent);
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px -6px color-mix(in srgb, var(--accent) 60%, transparent);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  }
+  .btn-resume:hover {
+    opacity: 0.94;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px -6px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 36px;
+  }
+  .stat {
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: var(--chip-bg);
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .stat:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+  .stat .num {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat:nth-child(2) .num { color: var(--accent-amber); }
+  .stat:nth-child(3) .num { color: var(--accent-teal); }
+  .stat .label {
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    margin-top: 3px;
+  }
+  @media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+
+  /* ---------- Sections ---------- */
+  section { margin-top: 68px; }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 24px;
+    letter-spacing: -0.01em;
+  }
+  .lede { color: var(--ink-muted); max-width: 60ch; font-size: 1.03rem; }
+
+  /* ---------- Experience ---------- */
+  .job-card {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .job-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .job-card:hover::before { opacity: 1; }
+  .job-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px -18px rgba(0,0,0,0.28);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  }
+  .job-card > * { position: relative; }
+  section#experience .job-card:last-of-type { margin-bottom: 0; }
+  .job-icon {
+    flex: none;
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: var(--chip-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .job-icon svg {
+    width: 26px; height: 26px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .job-icon.tint-blue { background: var(--tint-blue); }
+  .job-icon.tint-amber { background: var(--tint-amber); }
+  .job-icon.tint-amber svg { stroke: var(--accent-amber); }
+  .job-icon.tint-teal { background: var(--tint-teal); }
+  .job-icon.tint-teal svg { stroke: var(--accent-teal); }
+  .job-body { flex: 1; min-width: 0; }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-bottom: 4px;
+  }
+  .job-head h3 { margin: 0; font-size: 1.18rem; font-weight: 700; }
+  .job-head .meta { font-size: 0.92rem; color: var(--ink-muted); white-space: nowrap; }
+  .job-sub { font-size: 0.98rem; color: var(--ink-muted); margin: 0 0 16px; }
+  .job-body p.story { margin: 0 0 16px; color: var(--ink); font-size: 1.02rem; }
+  .pull-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 4px 0 18px;
+    padding-left: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .job-card:nth-of-type(2) .pull-stat { border-color: var(--accent-amber); }
+  .job-card:nth-of-type(3) .pull-stat { border-color: var(--accent-teal); }
+  .pull-stat .big {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .job-card:nth-of-type(2) .pull-stat .big { color: var(--accent-amber); }
+  .job-card:nth-of-type(3) .pull-stat .big { color: var(--accent-teal); }
+  .pull-stat .cap { font-size: 0.95rem; color: var(--ink-muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .tag {
+    font-size: 0.85rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    color: var(--ink-muted);
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  .job-card:hover .tag {
+    border-color: var(--line);
+  }
+  .tag:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  }
+
+  /* ---------- Skills ---------- */
+  #skills { margin-top: 48px; }
+  #skills h2 { font-size: 1.1rem; color: var(--ink-muted); margin-bottom: 16px; }
+  .skill-group {
+    display: grid;
+    grid-template-columns: 128px 1fr;
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: start;
+    margin-bottom: 10px;
+  }
+  .skill-group .label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    padding-top: 5px;
+  }
+  .skill-group .tags { margin-top: 0; row-gap: 6px; }
+  .skill-group .tag { padding: 3px 10px; font-size: 0.8rem; }
+  @media (max-width: 560px) {
+    .skill-group { grid-template-columns: 1fr; row-gap: 6px; margin-bottom: 16px; }
+    .skill-group .label { padding-top: 0; }
+  }
+
+  /* ---------- Certification ---------- */
+  .cert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .cert .name { font-weight: 700; font-size: 1.03rem; }
+  .cert .desc { color: var(--ink-muted); font-size: 0.95rem; margin-top: 2px; }
+  .cert a { color: var(--accent); font-weight: 600; font-size: 0.95rem; text-decoration: none; white-space: nowrap; }
+  .cert a:hover { text-decoration: underline; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 90px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--ink-muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Theme transition (circular reveal) ---------- */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+  ::view-transition-old(root) { z-index: 1; }
+  ::view-transition-new(root) { z-index: 2; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- Theme toggle ---------- */
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--bg-raised, var(--bg));
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: none;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: none; }
+    :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: block; }
+  }
+</style>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav class="site-nav" id="siteNav">
+  <a class="brand" href="#top">NE<span>.</span></a>
+  <ul>
+    <li><a class="nav-link" href="#about">About</a></li>
+    <li><a class="nav-link" href="#experience">Work</a></li>
+    <li><a class="nav-link" href="#skills">Skills</a></li>
+    <li><a class="nav-link" href="#certifications">Contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+  </button>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header>
+    <span class="status-pill"><span class="dot" aria-hidden="true"></span>Open to new opportunities</span>
+    <div class="hero-top">
+      <div class="avatar" aria-hidden="true">NE</div>
+      <div>
+        <p class="eyebrow">Full-Stack Engineer · Chennai, India</p>
+        <h1>Naveen Elango</h1>
+      </div>
+    </div>
+    <p class="tagline">I build enterprise web applications end-to-end — React.js frontends, Node.js/Express backend services, and the database and messaging infrastructure that connects them.</p>
+    <div class="contact-row">
+      <a href="mailto:naveenelango018@gmail.com">naveenelango018@gmail.com</a>
+      <a href="tel:+916382883018">+91 6382883018</a>
+      <a href="https://www.linkedin.com/in/naveen-elango-4841302a6/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn-resume" href="./resume.pdf" target="_blank" rel="noopener">Download Résumé</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">3+</div><div class="label">Years Experience</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Production Systems</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">React Certification</div></div>
+    </div>
+  </header>
+
+  <section id="about" class="reveal">
+    <h2>About</h2>
+    <p class="lede">
+      I'm a full-stack engineer with three years of experience building enterprise-grade web applications
+      end-to-end — responsive React.js frontends paired with Node.js/Express backend services, RESTful API
+      design, and relational database design in MySQL/MariaDB. I also work across the broader backend stack,
+      including RabbitMQ messaging, Redis, and microservices-based system design, and I'm increasingly
+      involved in architecture decisions on both sides of the stack. Outside the core role, I mentor junior
+      developers and hold a HackerRank certification in React, CSS, and JavaScript.
+    </p>
+  </section>
+
+  <section id="experience">
+    <h2>Selected Work</h2>
+
+    <div class="job-card reveal">
+      <div class="job-icon tint-blue" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="job-body">
+        <div class="job-head">
+          <h3>CATMO — E2 Infosystems</h3>
+          <span class="meta">Mar 2023 — Present</span>
+        </div>
+        <p class="job-sub">Full Stack Developer · Chennai, India</p>
+
+        <p class="story">Operations teams needed to see and react to safety events the moment they happened — the old tooling was too slow to matter in an emergency. I own the messaging layer that fixed that: WebSocket and STOMP push live updates straight to the dashboard, backed by a RabbitMQ backbone speaking both AMQP and MQTT.</p>
+
+        <div class="pull-stat">
+          <span class="big">&lt;1s</span>
+          <span class="cap">alert latency, end to end</span>
+        </div>
+
+        <p class="story">On the product side I built the React frontend and the Node/Express APIs behind role-based reporting, mustering, and QR safety check-ins — and I've taken a growing hand in how the whole thing is architected. I mentor newer developers on React through code review as the team's grown.</p>
+
+        <div class="tags">
+          <span class="tag">React.js</span><span class="tag">Redux</span><span class="tag">Node.js</span>
+          <span class="tag">Express.js</span><span class="tag">MySQL</span><span class="tag">MariaDB</span>
+          <span class="tag">Sequelize ORM</span><span class="tag">RabbitMQ</span><span class="tag">Redis</span>
+          <span class="tag">WebSockets</span><span class="tag">STOMP</span><span class="tag">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job-card reveal">
+      <div class="job-icon tint-amber" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><polyline points="8.5 12 11 14.5 16 9"/></svg>
+      </div>
+      <div class="job-body">
+        <div class="job-head">
+          <h3>Formicon Keystone</h3>
+          <span class="meta">6 Months</span>
+        </div>
+        <p class="job-sub">Multi-tenant SaaS platform for forms, approvals, and task workflows (SSO-ready, SOC 2 Type II)</p>
+        <p class="story">Built frontend features — including the in-app notification system — designed to respect strict per-tenant role and permission boundaries on infrastructure held to SOC 2 Type II standards.</p>
+        <div class="tags"><span class="tag">React.js</span><span class="tag">Python</span></div>
+      </div>
+    </div>
+
+    <div class="job-card reveal">
+      <div class="job-icon tint-teal" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2 5 5.5v6C5 16.5 8 20 12 22c4-2 7-5.5 7-10.5v-6L12 2z"/><polyline points="9 12 11 14 15.5 9.5"/></svg>
+      </div>
+      <div class="job-body">
+        <div class="job-head">
+          <h3>Certify Platform</h3>
+          <span class="meta">6 Months</span>
+        </div>
+        <p class="job-sub">Frontend Contributor · QR-secured e-certificate issuance and verification platform</p>
+        <p class="story">Bug fixes and UI refinements across the frontend, improving stability and usability for people issuing and verifying certificates.</p>
+        <div class="tags"><span class="tag">React.js</span><span class="tag">Python</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <h2>Tools &amp; Technologies</h2>
+    <div class="skill-group">
+      <div class="label">Frontend</div>
+      <div class="tags"><span class="tag">React.js</span><span class="tag">Redux</span><span class="tag">REST API Integration</span><span class="tag">Responsive UI Development</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Backend</div>
+      <div class="tags"><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">Sequelize ORM</span><span class="tag">REST API Design</span><span class="tag">RabbitMQ (AMQP/MQTT)</span><span class="tag">Redis</span><span class="tag">WebSockets</span><span class="tag">STOMP</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Database</div>
+      <div class="tags"><span class="tag">MySQL</span><span class="tag">MariaDB</span><span class="tag">SQL</span><span class="tag">Database Design</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Architecture &amp; Design</div>
+      <div class="tags"><span class="tag">Microservices Architecture</span><span class="tag">System Design</span><span class="tag">Backend &amp; Frontend Architecture</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">AI-Assisted Development</div>
+      <div class="tags"><span class="tag">Claude Code</span><span class="tag">Claude Cowork</span><span class="tag">AI-Driven Feature Development</span><span class="tag">Technical Research &amp; Analysis</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Tools &amp; Practices</div>
+      <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Sentry</span><span class="tag">Jest</span><span class="tag">Webpack</span><span class="tag">Agile</span><span class="tag">Ubuntu Linux</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Cloud</div>
+      <div class="tags"><span class="tag">AWS CloudWatch (Log Monitoring)</span></div>
+    </div>
+  </section>
+
+  <section id="certifications" class="reveal">
+    <h2>Certifications</h2>
+    <div class="cert">
+      <div>
+        <div class="name">Frontend Developer (React) Certificate — HackerRank</div>
+        <div class="desc">Certifies proficiency in React, CSS, and JavaScript</div>
+      </div>
+      <a href="https://www.hackerrank.com/certificates/5da4cc5d4158" target="_blank" rel="noopener">Verify →</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Naveen Elango — Chennai, Tamil Nadu, India</span>
+    <span>
+      <a href="mailto:naveenelango018@gmail.com">Email</a> ·
+      <a href="tel:+916382883018">Phone</a> ·
+      <a href="https://www.linkedin.com/in/naveen-elango-4841302a6/" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var stored = localStorage.getItem('theme');
+    if (stored === 'dark' || stored === 'light') {
+      root.setAttribute('data-theme', stored);
+    }
+    var applyTheme = function (next) {
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    };
+
+    btn.addEventListener('click', function (e) {
+      var current = root.getAttribute('data-theme');
+      if (!current) {
+        current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      var next = current === 'dark' ? 'light' : 'dark';
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!document.startViewTransition || reduceMotion) {
+        applyTheme(next);
+        return;
+      }
+
+      var r = btn.getBoundingClientRect();
+      var x = r.left + r.width / 2;
+      var y = r.top + r.height / 2;
+      var endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      var transition = document.startViewTransition(function () {
+        applyTheme(next);
+      });
+
+      transition.ready.then(function () {
+        var clipFrom = 'circle(0px at ' + x + 'px ' + y + 'px)';
+        var clipTo = 'circle(' + endRadius + 'px at ' + x + 'px ' + y + 'px)';
+        document.documentElement.animate(
+          { clipPath: [clipFrom, clipTo] },
+          { duration: 550, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' }
+        );
+      });
+    });
+  })();
+
+  (function () {
+    var nav = document.getElementById('siteNav');
+    var bar = document.getElementById('scrollProgress');
+    var onScroll = function () {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+      var h = document.documentElement;
+      var scrolled = h.scrollTop;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !items.length) {
+      items.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  (function () {
+    if (window.matchMedia('(hover: none)').matches) return;
+    document.querySelectorAll('.job-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+      });
+    });
+  })();
+</script>
