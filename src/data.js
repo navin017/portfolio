@@ -12,9 +12,9 @@ export const profile = {
 };
 
 export const about = [
-  "I'm a Full Stack Developer at E2 Infosystems in Chennai, where I've spent the last 3.5+ years building enterprise web applications end-to-end, from React interfaces to Node.js services and MySQL data models.",
-  "My specialty is real-time systems: WebSocket/STOMP dashboards that push critical alerts in under a second, and RabbitMQ messaging that bridges AMQP and MQTT across distributed environments. I also contribute to system design, review code, and mentor junior developers.",
-  "I also build with Generative AI. The assistant on this site (try the button in the corner) runs on Google Gemini, and I use Claude Code every day to research, prototype, and ship faster without cutting corners on quality.",
+  "I'm a Full Stack Developer with 3.5+ years of experience at E2 Infosystems in Chennai. I have a background in Electronics and Communication Engineering, moved into software development, and now work across the entire stack, from user interfaces to backend services and databases.",
+  "Much of my work has focused on real-time systems, where speed and reliability directly affect the people using them. I take a detail-oriented approach to building software that is dependable, maintainable, and easy to use. I also contribute to design discussions and support my team through code reviews and mentoring junior developers.",
+  "I'm currently expanding my work in Generative AI, building AI-powered features (including the assistant on this site) and using AI tools to improve how I develop software. I'm looking for opportunities to contribute to teams building impactful, high-quality products.",
 ];
 
 export const stats = [
