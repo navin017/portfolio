@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 const KEY = "theme";
 const MODES = [
@@ -29,41 +30,38 @@ function saveMode(mode) {
 
 // Switch the resolved theme with a circular wipe anchored on the toggle icon:
 // going dark, the new theme grows out of the icon; going light, the dark
-// theme shrinks back into it.
-function applyTheme(next, origin) {
+// theme shrinks back into it. The wipe itself is a CSS keyframe animation
+// (styles.css) so it is applied from the very first frame of the transition.
+let current = 0;
+function applyTheme(next, origin, update = () => {}) {
   const root = document.documentElement;
-  if (root.dataset.theme === next) return;
+  const commit = () => {
+    update();
+    root.dataset.theme = next;
+  };
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!document.startViewTransition || reduceMotion || !origin) {
-    root.dataset.theme = next;
+  if (root.dataset.theme === next || !document.startViewTransition || reduceMotion || !origin) {
+    commit();
     return;
   }
 
   const { x, y } = origin;
   const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-  const growing = next === "dark";
-  root.classList.toggle("theme-shrink", !growing);
+  root.style.setProperty("--tt-x", `${x}px`);
+  root.style.setProperty("--tt-y", `${y}px`);
+  root.style.setProperty("--tt-r", `${Math.ceil(radius)}px`);
+  root.classList.remove("theme-grow", "theme-shrink");
+  root.classList.add("theme-switching", next === "dark" ? "theme-grow" : "theme-shrink");
 
-  const transition = document.startViewTransition(() => {
-    root.dataset.theme = next;
-  });
-
-  transition.ready
-    .then(() => {
-      const clip = [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`];
-      root.animate(
-        { clipPath: growing ? clip : [...clip].reverse() },
-        {
-          duration: 650,
-          easing: "cubic-bezier(0.65, 0, 0.35, 1)",
-          fill: "forwards",
-          pseudoElement: growing ? "::view-transition-new(root)" : "::view-transition-old(root)",
-        }
-      );
-    })
-    .catch(() => {}); // skipped (e.g. tab hidden): theme still applies, just without the wipe
-  transition.finished.finally(() => root.classList.remove("theme-shrink")).catch(() => {});
+  const id = ++current;
+  const transition = document.startViewTransition(commit);
+  transition.ready.catch(() => {}); // skipped (e.g. tab hidden): theme still applies
+  transition.finished
+    .catch(() => {})
+    .finally(() => {
+      if (id === current) root.classList.remove("theme-switching", "theme-grow", "theme-shrink");
+    });
 }
 
 const Icon = ({ mode }) => {
@@ -126,10 +124,11 @@ export default function ThemeToggle() {
   }, [open]);
 
   const choose = (next) => {
-    setMode(next);
     saveMode(next);
-    setOpen(false);
-    applyTheme(resolve(next), iconCenter());
+    // Close the menu before the "before" snapshot is taken, so it doesn't linger
+    // outside the circle; swap the icon inside the transition with the theme.
+    flushSync(() => setOpen(false));
+    applyTheme(resolve(next), iconCenter(), () => flushSync(() => setMode(next)));
   };
 
   return (
