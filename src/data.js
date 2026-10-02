@@ -80,11 +80,15 @@ export const projects = [
   {
     name: "Formicon",
     kind: "Multi-Tenant SaaS Workflow Platform",
-    role: "Frontend Developer",
+    role: "Full Stack Contributor",
     summary:
-      "A multi-tenant SaaS platform for forms, approvals, and task workflows, with per-tenant roles and permissions. SSO-ready and SOC 2 Type II.",
-    points: ["Built frontend features, including notification functionality, for a multi-tenant permission model."],
-    tech: ["React.js", "Python"],
+      "A multi-tenant SaaS platform for forms, approvals, and task workflows, with per-tenant roles and permissions, available on the web and Android.",
+    points: [
+      "Built multi-department user assignment end-to-end: data model, access rules, FastAPI endpoints, a data migration, and the React UI.",
+      "Shipped the first Android app build with Capacitor and fixed push notification delivery through Firebase Cloud Messaging.",
+      "Added filters, required-field validations, and Google Sign-In fixes across forms and requests, with pytest test coverage.",
+    ],
+    tech: ["React.js", "FastAPI (Python)", "MongoDB", "Firebase Cloud Messaging", "Capacitor (Android)"],
   },
   {
     name: "Certify",
