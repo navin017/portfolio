@@ -3,6 +3,7 @@ import {
   profile, about, stats, skills, experience, projects, education, certifications,
 } from "./data.js";
 import ChatWidget from "./ChatWidget.jsx";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 const NAV = ["About", "Skills", "Experience", "Projects", "Contact"];
 
@@ -22,15 +23,18 @@ export default function App() {
     <>
       <header className="nav">
         <a href="#top" className="logo">NE<span>.</span></a>
-        <button className="menu-btn" onClick={() => setMenu(!menu)} aria-label="Toggle menu">
-          {menu ? "✕" : "☰"}
-        </button>
-        <nav className={menu ? "open" : ""}>
-          {NAV.map((n) => (
-            <a key={n} href={`#${n.toLowerCase()}`} onClick={() => setMenu(false)}>{n}</a>
-          ))}
-          <a href={profile.resume} className="btn small" target="_blank" rel="noreferrer">Resume</a>
-        </nav>
+        <div className="nav-right">
+          <nav className={menu ? "open" : ""}>
+            {NAV.map((n) => (
+              <a key={n} href={`#${n.toLowerCase()}`} onClick={() => setMenu(false)}>{n}</a>
+            ))}
+            <a href={profile.resume} className="btn small" target="_blank" rel="noreferrer">Resume</a>
+          </nav>
+          <ThemeToggle />
+          <button className="menu-btn" onClick={() => setMenu(!menu)} aria-label="Toggle menu">
+            {menu ? "✕" : "☰"}
+          </button>
+        </div>
       </header>
 
       <main id="top">
