@@ -42,7 +42,7 @@ export default function App() {
           <div className="hero-copy">
             <p className="hello">Hi, I'm</p>
             <h1>{profile.name}</h1>
-            <p className="role">{profile.role} · React.js · Node.js · Real-Time Systems</p>
+            <p className="role">{profile.role}</p>
             <p className="tagline">{profile.tagline}</p>
             <div className="cta">
               <a href="#projects" className="btn">View my work</a>
