@@ -133,7 +133,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 .points { padding-left: 20px; color: var(--muted); }
 .points li { margin-bottom: 8px; }
 .points li::marker { color: var(--accent); }
-.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .edu h3 { font-size: 1.05rem; margin: 4px 0; }
 
 /* ---------- projects ---------- */

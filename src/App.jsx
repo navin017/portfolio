@@ -98,22 +98,6 @@ export default function App() {
               </ul>
             </article>
           ))}
-          <div className="edu">
-            <div className="card">
-              <p className="kicker small">Education</p>
-              <h3>{education.degree}</h3>
-              <p className="muted">{education.school} · {education.year}</p>
-            </div>
-            {certifications.map((c) => (
-              <div key={c.name} className="card">
-                <p className="kicker small">Certification</p>
-                <h3>{c.name}</h3>
-                <p className="muted">
-                  {c.issuer} · <a href={c.url} target="_blank" rel="noreferrer">Verify ↗</a>
-                </p>
-              </div>
-            ))}
-          </div>
         </Section>
 
         <Section id="projects" title="Projects">
@@ -135,6 +119,25 @@ export default function App() {
                   {p.tech.map((t) => <span key={t} className="chip mono">{t}</span>)}
                 </div>
               </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section id="education" title="Education & Certifications">
+          <div className="edu">
+            <div className="card">
+              <p className="kicker small">Education</p>
+              <h3>{education.degree}</h3>
+              <p className="muted">{education.school} · {education.year}</p>
+            </div>
+            {certifications.map((c) => (
+              <div key={c.name} className="card">
+                <p className="kicker small">Certification</p>
+                <h3>{c.name}</h3>
+                <p className="muted">
+                  {c.issuer} · <a href={c.url} target="_blank" rel="noreferrer">Verify ↗</a>
+                </p>
+              </div>
             ))}
           </div>
         </Section>
