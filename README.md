@@ -28,5 +28,4 @@ Option A: Vercel (easiest)
    if you bought it through them. Then remove the old Gravatar redirect.
 
 Option B: GitHub Pages
-- `public/CNAME` already contains `naveenelango.link`.
 - Deploy `dist/` with a GitHub Actions Pages workflow, then set the custom domain under repo Settings → Pages.
