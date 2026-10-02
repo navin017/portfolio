@@ -71,8 +71,8 @@ export const projects = [
     summary:
       "The \"Ask AI about me\" assistant on this site. It answers recruiter questions about my background in real time.",
     points: [
-      "Streams Google Gemini responses token-by-token from a Node.js serverless function into a React chat UI.",
-      "Grounds every answer in structured profile data through prompt engineering, with guardrails against made-up facts.",
+      "Answers recruiter questions from portfolio data, streaming Google Gemini replies live from a Node.js serverless function into a React chat UI.",
+      "Guards against prompt injection and made-up answers with grounded prompts, so it only says what's true about my background.",
       "Input limits and per-IP rate limiting protect the API key and keep costs predictable.",
     ],
     tech: ["React.js", "Node.js", "Google Gemini API", "Server-Sent Events", "Vercel Serverless"],
@@ -84,9 +84,9 @@ export const projects = [
     summary:
       "A multi-tenant SaaS platform for forms, approvals, and task workflows, with per-tenant roles and permissions, available on the web and Android.",
     points: [
-      "Built the multi-department user assignment UI in React and integrated it with the backend REST APIs.",
-      "Shipped the first Android app build with Capacitor and fixed push notification delivery through Firebase Cloud Messaging.",
-      "Added filters, required-field validations, and Google Sign-In fixes across the forms and requests modules.",
+      "Shipped the first Android APK with Capacitor, bringing push notifications and Google Sign-In to mobile.",
+      "Fixed Firebase Cloud Messaging delivery so notifications reliably reach users on both web and Android.",
+      "Built multi-department user assignment and form/request filters, so admins can find data faster.",
     ],
     tech: ["React.js", "Capacitor (Android)", "Firebase Cloud Messaging", "REST APIs"],
   },
