@@ -60,7 +60,7 @@ export const projects = [
       "Real-time operational dashboards over WebSocket + STOMP, delivering critical safety alerts with sub-second latency.",
       "Cross-protocol messaging infrastructure on RabbitMQ (AMQP and MQTT) coordinating multi-channel communication.",
       "Role-based reporting and mustering workflows built end-to-end: React UI, Express APIs, Sequelize models.",
-      "QR-based registration and personnel safety check-in, improving mobile adoption and tracking accuracy.",
+      "QR-based registration and personnel safety check-in, improving adoption and tracking accuracy.",
     ],
     tech: ["React.js", "Redux", "Node.js", "Express.js", "MySQL", "MariaDB", "Sequelize", "RabbitMQ", "Redis", "WebSockets", "STOMP"],
   },
@@ -94,15 +94,14 @@ export const projects = [
   {
     name: "Formicon",
     kind: "Multi-Tenant SaaS Workflow Platform",
-    role: "Frontend & Mobile Developer",
+    role: "Frontend Developer",
     summary:
-      "A multi-tenant SaaS platform for forms, approvals, and task workflows, with per-tenant roles and permissions, available on the web and Android.",
+      "A multi-tenant SaaS platform for forms, approvals, and task workflows, with per-tenant roles and permissions.",
     points: [
-      "Shipped the first Android APK with Capacitor, bringing push notifications and Google Sign-In to mobile.",
-      "Fixed Firebase Cloud Messaging delivery so notifications reliably reach users on both web and Android.",
+      "Fixed Firebase Cloud Messaging delivery so push notifications reliably reach users.",
       "Built multi-department user assignment and form/request filters, so admins can find data faster.",
     ],
-    tech: ["React.js", "Capacitor (Android)", "Firebase Cloud Messaging", "REST APIs"],
+    tech: ["React.js", "Firebase Cloud Messaging", "REST APIs"],
   },
   {
     name: "Certify",
