@@ -27,7 +27,7 @@ export const skills = [
   { group: "Frontend", items: ["React.js", "Angular", "Redux", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Responsive UI"] },
   { group: "Backend", items: ["Node.js", "Express.js", "REST API Design", "Sequelize ORM", "WebSockets", "STOMP"] },
   { group: "Messaging & Data", items: ["RabbitMQ (AMQP / MQTT)", "Redis", "MySQL", "MariaDB", "Database Design"] },
-  { group: "Architecture", items: ["Microservices", "Event-Driven Architecture", "Pub/Sub Messaging", "Real-Time Systems", "Component-Based Architecture", "RBAC"] },
+  { group: "Architecture", items: ["Microservices", "Event-Driven Architecture", "Pub/Sub Messaging", "Real-Time Systems", "Durable Workflows (Dapr)", "Component-Based Architecture", "RBAC"] },
   { group: "Tooling", items: ["Git & GitHub", "Jest", "Webpack", "Sentry", "AWS CloudWatch (Log Analysis)", "Ubuntu Linux", "Agile"] },
   { group: "Generative AI", items: ["Google Gemini API", "LLM Integration", "Prompt Engineering", "Streaming Responses", "Claude Code"] },
 ];
@@ -63,6 +63,20 @@ export const projects = [
       "QR-based registration and personnel safety check-in, improving mobile adoption and tracking accuracy.",
     ],
     tech: ["React.js", "Redux", "Node.js", "Express.js", "MySQL", "MariaDB", "Sequelize", "RabbitMQ", "Redis", "WebSockets", "STOMP"],
+  },
+  {
+    name: "Durable Incident Triage Agent",
+    kind: "AI Workflow on Dapr",
+    role: "Personal Project",
+    link: "https://github.com/navin017/durable-incident-agent",
+    summary:
+      "An AI incident triage workflow that survives a crash. If the process dies halfway through, it resumes from its last completed step instead of starting over.",
+    points: [
+      "Four-step workflow on Dapr: gather context, classify with Google Gemini, draft an update, and send a notification.",
+      "An automated crash test force-kills the worker mid-step, restarts it, and verifies finished steps and the LLM call are not repeated.",
+      "Retries with backoff on the LLM step, and an idempotent notification step, so a retry cannot send twice.",
+    ],
+    tech: ["TypeScript", "Node.js", "Dapr Workflows", "Google Gemini API", "SQLite"],
   },
   {
     name: "AI Portfolio Assistant",

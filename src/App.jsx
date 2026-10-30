@@ -115,6 +115,7 @@ export default function App() {
                 <ul className="points">
                   {p.points.map((pt) => <li key={pt}>{pt}</li>)}
                 </ul>
+                {p.link && <a href={p.link} target="_blank" rel="noreferrer">View on GitHub</a>}
                 <div className="chips">
                   {p.tech.map((t) => <span key={t} className="chip mono">{t}</span>)}
                 </div>
